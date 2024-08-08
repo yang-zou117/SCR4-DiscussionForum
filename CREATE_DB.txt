@@ -1,0 +1,226 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+CREATE DATABASE IF NOT EXISTS `DiscussionForum` 
+DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci;
+USE `DiscussionForum`;
+
+/* create tables */
+
+CREATE TABLE `users` (
+    `id` int(11) NOT NULL,
+    `userName` varchar(255) NOT NULL,
+    `passwordHash` char(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- mock data for users 
+INSERT INTO `users` (`id`, `userName`, `passwordHash`) VALUES
+(1, 'scr4', '$2y$10$0dhe3ngxlmzgZrX6MpSHkeoDQ.dOaceVTomUq/nQXV0vSkFojq.VG');
+
+INSERT INTO `users` (`id`, `userName`, `passwordHash`) VALUES
+(2, 'Johnny', '$2y$10$0dhe3ngxlmzgZrX6MpSHkeoDQ.dOaceVTomUq/nQXV0vSkFojq.VG');
+
+INSERT INTO `users` (`id`, `userName`, `passwordHash`) VALUES
+(3, 'haleluja', '$2y$10$0dhe3ngxlmzgZrX6MpSHkeoDQ.dOaceVTomUq/nQXV0vSkFojq.VG');
+
+INSERT INTO `users` (`id`, `userName`, `passwordHash`) VALUES
+(4, 'SwaHupf', '$2y$10$0dhe3ngxlmzgZrX6MpSHkeoDQ.dOaceVTomUq/nQXV0vSkFojq.VG');
+
+INSERT INTO `users` (`id`, `userName`, `passwordHash`) VALUES
+(5, 'DollarTrump', '$2y$10$0dhe3ngxlmzgZrX6MpSHkeoDQ.dOaceVTomUq/nQXV0vSkFojq.VG');
+
+INSERT INTO `users` (`id`, `userName`, `passwordHash`) VALUES
+(6, 'timoline', '$2y$10$0dhe3ngxlmzgZrX6MpSHkeoDQ.dOaceVTomUq/nQXV0vSkFojq.VG');
+
+INSERT INTO `users` (`id`, `userName`, `passwordHash`) VALUES
+(7, 'XTYY', '$2y$10$0dhe3ngxlmzgZrX6MpSHkeoDQ.dOaceVTomUq/nQXV0vSkFojq.VG');
+
+
+CREATE TABLE `Discussions` (
+    `did` int(11) NOT NULL,
+    `topic` varchar(255) NOT NULL,
+    `startUser` varchar(255) NOT NULL,
+    `startDateTime` datetime NOT NULL,
+    `lastUser` varchar(255) NULL, 
+    `lastDateTime` datetime NULL  
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- mock data for Discussions
+
+INSERT INTO `Discussions` (`did`, `topic`, `startUser`, `startDateTime`, `lastUser`, `lastDateTime`) VALUES
+(1, 'What is the role of government in society?', 'scr4', '2021-01-01 11:02:30', 'scr4', '2021-01-01 11:02:30');
+
+INSERT INTO `Discussions` (`did`, `topic`, `startUser`, `startDateTime`, `lastUser`, `lastDateTime`) VALUES
+(2, 'What do you think about the future of space exploration?', 'timoline', '2021-01-21 12:00:00', 'haleluja', '2023-05-01 09:33:58');
+
+
+INSERT INTO `Discussions` (`did`, `topic`, `startUser`, `startDateTime`, `lastUser`, `lastDateTime`) VALUES
+(3, 'How many languages can a person learn?', 'Johnny', '2021-02-01 12:00:45', 'scr4', ' 2023-03-31 04:39:00');
+
+INSERT INTO `Discussions` (`did`, `topic`, `startUser`, `startDateTime`, `lastUser`, `lastDateTime`) VALUES
+(4, 'USA: Is American Dream dead?', 'XTYY', '2020-01-01 14:00:23', 'DollarTrump', '2023-04-30 12:01:10');
+
+INSERT INTO `Discussions` (`did`, `topic`, `startUser`, `startDateTime`, `lastUser`, `lastDateTime`) VALUES
+(5, 'Why are apple products so expensive?', 'SwaHupf', '2015-08-01 12:30:00', 'timoline', '2019-07-31 08:00:00');
+
+INSERT INTO `Discussions` (`did`, `topic`, `startUser`, `startDateTime`, `lastUser`, `lastDateTime`) VALUES
+(6, 'Why is the sky blue?', 'scr4', '2015-04-01 12:30:00', 'SwaHupf', '2019-07-31 08:36:40');
+
+
+
+CREATE TABLE `Posts` (
+    `pid` int(11) NOT NULL,
+    `content` varchar(1000) NOT NULL,
+    `author` varchar(255) NOT NULL,
+    `createdAt` datetime NOT NULL,
+    `did` int(11) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- mock data for Posts
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(1, 'In my opinion, the role of government is to protect the people from each other.
+What do you think about it?', 'scr4', '2021-01-01 11:02:30', 1);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(2, 'I think that the future of space exploration is very bright.
+We will be able to colonize Mars in the next 20 years.' , 'timoline', '2021-01-21 12:00:00', 2);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(3, 'I am not sure about that. I think that we will be able to colonize Mars in the next 100 years.', 'scr4', '2021-05-30 08:00:00', 2);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(4, 'I think that we will be able to colonize Mars in the next 100 years.', 'haleluja', '2021-06-01 12:40:00', 2);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(5, 'I believe that we will conquer the whole universe in the next 1000 years.', 'Johnny', '2023-04-23 04:33:58', 2);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(6, 'With the advance of technology,
+the human being will be able to travel from planet to planet, just like in Start Wars', 'haleluja', '2023-05-01 09:33:58', 2);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(7, 'I think that a person can learn 2-3 languages.
+After that, it is very difficult to learn a new language.', 'Johnny', '2021-02-01 12:00:45', 3);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(8, 'From my experience, I can say that it is possible to learn 5-6 languages.
+I speak 6 languages fluently.', 'scr4', '2023-03-31 04:39:00', 3);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(9, 'I think that the American Dream is still alive.
+It is just that the dream has changed.
+Now the dream is to have a good job and a nice house.', 'XTYY', '2020-01-01 14:00:23', 4);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(10, 'I think that the American Dream is dead. Our wealth is decreasing and our jobs are being outsourced to other
+countries. We need to bring back our jobs. Let us make America great again!', 'DollarTrump', ' 2023-04-30 12:01:10', 4);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(11, 'I think that apple products are so expensive because they are very good.
+I have an iPhone and I am very happy with it.', 'SwaHupf', ' 2015-08-01 12:30:00', 5);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(12, 'From my point of view, the price policy of Apple is absolutely unfair and unacceptable.
+They view the customers just as cashcows and are making a lot of money on their customers whilie evading taxes.', 'timoline', ' 2019-07-31 08:00:00', 5);
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(13, 'They reason why the sky is blue because of the scattering of light by the molecules of the atmosphere.', 'scr4', '2015-04-01 12:30:00', 6); 
+
+INSERT INTO `Posts` (`pid`, `content`, `author`, `createdAt`, `did`) VALUES
+(14, 'I believe that you are right.', 'SwaHupf', '2019-07-31 08:36:40', 6); 
+
+
+
+-- add primary keys
+
+ALTER TABLE `users`
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `userName` (`userName`);
+
+ALTER TABLE `Discussions`
+    ADD PRIMARY KEY (`did`);
+
+ALTER TABLE `Posts`
+    ADD PRIMARY KEY (`pid`);
+
+-- add auto increment
+ALTER TABLE `users`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+ALTER TABLE `Discussions`
+    MODIFY `did` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+ALTER TABLE `Posts`
+    MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+
+-- add foreign keys
+ALTER TABLE `Posts`
+    ADD CONSTRAINT `Posts_Discussions_fk` FOREIGN KEY (`did`) REFERENCES `Discussions` (`did`) ON DELETE CASCADE ON UPDATE CASCADE; 
+
+ALTER TABLE `Posts`
+    ADD CONSTRAINT `Posts_User_fk` FOREIGN KEY (`author`) REFERENCES `users` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `Discussions`
+    ADD CONSTRAINT `Discussions_User_fk1` FOREIGN KEY (`startUser`) REFERENCES `users` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `Discussions`
+    ADD CONSTRAINT `Discussions_User_fk2` FOREIGN KEY (`lastUser`) REFERENCES `users` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+-- trigger to update lastUser and lastDateTime if a new post is added
+DELIMITER //
+CREATE TRIGGER `update_lastUser_lastDateTime_insert` 
+AFTER INSERT ON `Posts` FOR EACH ROW
+BEGIN 
+    DECLARE `lastDateTimeOfDis` DATETIME;
+    SELECT `lastDateTime` INTO `lastDateTimeOfDis`
+    FROM `Discussions` WHERE `did` = NEW.`did`;
+    IF `lastDateTimeOfDis` < NEW.`createdAt` THEN
+        UPDATE `Discussions` 
+        SET `lastDateTime` = NEW.`createdAt`, `lastUser` = NEW.`author` 
+        WHERE `did` = NEW.`did`;
+    END IF;
+END; //
+DELIMITER ;
+
+-- trigger to update lastUser and lastDateTime if a post is removed
+DELIMITER //
+CREATE TRIGGER `update_lastUser_lastDateTime_delete` 
+AFTER DELETE ON `Posts` FOR EACH ROW
+BEGIN 
+    DECLARE `newLastDateTime` DATETIME;
+    DECLARE `newLastUser` VARCHAR(255);
+
+    -- check if there are still posts in the discussion
+    DECLARE `postsCount` INT;
+    SELECT COUNT(*) INTO `postsCount` 
+    FROM `Posts` 
+    WHERE `did` = OLD.`did` AND `pid` != OLD.`pid`;
+
+    IF `postsCount` = 0 THEN 
+        SET `newLastDateTime` = NULL;
+        SET `newLastUser` = NULL;
+        -- delete discussion if there are no posts left
+        DELETE FROM `Discussions` WHERE `did` = OLD.`did`;
+    ELSE
+        SELECT `createdAt`, `author` 
+        INTO `newLastDateTime`, `newLastUser`
+        FROM `Posts` 
+        WHERE `did` = OLD.`did` AND `pid` != OLD.`pid`
+        ORDER BY `createdAt` DESC 
+        LIMIT 1;
+
+        UPDATE `Discussions`
+        SET `lastDateTime` = `newLastDateTime`, `lastUser` = `newLastUser`
+        WHERE `did` = OLD.`did`;
+    END IF;
+
+END; //
+DELIMITER ;
+
+
+COMMIT; 
